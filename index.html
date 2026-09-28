@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MC网页版</title>
+  <meta name="description" content="在浏览器里玩MC">
+  <meta name="keywords" content="WebMC, MC, eaglercraft, eaglercraftx, minecraft">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="MC - 网页版MC">
+  <meta property="og:description" content="在浏览器里玩MC">
+  <style>
+    @font-face {
+      font-family: 'Oxanium';
+      font-style: normal;
+      font-weight: 200 800;
+      font-display: swap;
+      src: url(Oxanium.woff2) format('woff2');
+    }
+
+    :root {
+      --bg: rgba(255, 255, 255, 0);
+      --panel: rgba(255, 255, 255, 0.4);
+      --panel-border: rgb(230, 230, 230);
+      --muted: #6b6b6b;
+      --accent: #22a84a;
+      --accent-contrast: #0f6b2d;
+      --chip-bg: #f1f5f9;
+      --text: #111;
+      --gap: 20px;
+      font-family: "Oxanium", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Microsoft Yahei", Arial;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -999;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.8)), url('background.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background-color: #f0f0f0;
+      margin: 20px 0;
+    }
+
+    .pp {
+      text-align: center;
+      margin: 12px 0 6px;
+      color: var(--accent-contrast);
+      font-size: 20px
+    }
+
+    .ppp {
+      text-align: center;
+      margin: 0px 0 22px;
+      color: var(--accent-contrast);
+      font-size: 15px
+    }
+
+    .wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      text-align: center;
+      margin: 12px 0 12px
+    }
+
+    .hero h1 {
+      color: var(--accent);
+      margin: 0;
+      line-height: 70px;
+      font-size: 72px
+    }
+
+    .hero h2 {
+      color: var(--accent);
+      margin: 0;
+      font-size: 21px
+    }
+
+    .hero h3 {
+      color: var(--accent);
+      margin: 0;
+      font-size: 18px
+    }
+
+    .hero p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 15px
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--gap)
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+      color: var(--text);
+      padding: 18px;
+      border-radius: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 150px;
+    }
+
+    .card .chip {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 0;
+      background: var(--chip-bg);
+      color: var(--muted);
+    }
+
+    .card .chip1 {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 0;
+      background: cornflowerblue;
+      color: white;
+    }
+
+    .card .chip2 {
+      display: inline-block;
+      padding: 6px 8px;
+      font-size: 12px;
+      border-radius: 0;
+      background: darkorchid;
+      color: white;
+    }
+
+    .card h3 {
+      margin: 6px 0 6px;
+      font-size: 18px
+    }
+
+    .ver {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px
+    }
+
+    .features {
+      font-size: 13px;
+      color: #333;
+      margin: 10px 0;
+      line-height: 1.5
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 16px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 0;
+      font-weight: 700;
+      text-align: center;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .btn:hover {
+      background: var(--accent-contrast);
+    }
+
+    .btno {
+      display: inline-block;
+      background: gainsboro;
+      color: gray;
+      padding: 10px 16px;
+      text-decoration: none;
+      border-radius: 0;
+      font-weight: 700;
+      text-align: center;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .btnb {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 4px 4px;
+      width: 110px;
+      height: 18px;
+      font-size: 14px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      cursor: pointer;
+      text-decoration: none;
+      border-radius: 0;
+      text-align: center;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .btnb:hover {
+      background: var(--accent-contrast);
+    }
+
+    .btnbox {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      padding-bottom: 2px;
+    }
+
+    .doc {
+      margin-top: 18px;
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .doc h3 {
+      margin: 12px 0;
+      font-size: 20px;
+      color: #222
+    }
+
+    .doc p {
+      margin: 8px 0;
+      color: var(--muted);
+      line-height: 1.6
+    }
+
+    .doc ul {
+      color: var(--muted)
+    }
+
+    .small {
+      font-size: 18px;
+      margin-bottom: 0px;
+      color: var(--text) !important
+    }
+
+    .why {
+      display: flex;
+      gap: 20px;
+      justify-content: space-between;
+      flex-wrap: wrap
+    }
+
+    .why .item {
+      flex: 1 1 70px;
+      text-align: center;
+      padding: 18px;
+      border-radius: 0;
+      background: var(--panel);
+      border: 1px solid var(--panel-border);
+    }
+
+    .why .item h4 {
+      margin: 6px 0;
+      color: #222
+    }
+
+    .why .item p {
+      margin: 6px 0;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    footer {
+      margin-top: 18px;
+      padding: 18px 0;
+      text-align: center;
+      color: var(--muted);
+      line-height: 150%;
+      font-size: 12px;
+      border-top: 1px solid #f3f3f3
+    }
+
+    .hl {
+      background-color: rgba(227, 255, 230, 0.5);
+    }
+
+    .hero2 {
+      padding: 8px 0 8px;
+      max-width: 450px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero2 h1 {
+      text-align: center;
+      margin: 0;
+      color: red;
+      font-size: 30px
+    }
+
+    .hero2 h2 {
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 6px;
+      color: black;
+      font-size: 20px;
+    }
+
+    .hero2 ol {
+      margin-top: 0px;
+      margin-bottom: 12px;
+    }
+
+    .hero2 li {
+      margin-top: 6px;
+      color: black;
+      font-size: 16px
+    }
+
+    .hero2 a {
+      color: green;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .siz {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .modal-window {
+      background-color: #fff;
+      padding: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 90%;
+      max-width: 250px;
+      cursor: default;
+    }
+
+    .modal-window h3 {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #333;
+      font-size: 20px;
+    }
+
+    .modal-window span {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #333;
+      font-size: 13px;
+    }
+
+    .modal-window p {
+      margin-top: 0;
+      margin-bottom: 0;
+      color: #777;
+      font-size: 12px;
+    }
+  </style>
+
+</head>
+<body class="img-bg"><div class="bg" id="bg"></div>
+
+  <div class="wrap">
+    <section class="hero">
+      <h1>MC 网页版</h1>
+      <h3>MC in JavaScript · 网页版 MC</h3>
+      <h2>无需下载, 直接在浏览器里玩 MC !</h2>
+    </section>
+
+    <hr id="release">
+
+<main class="grid" aria-label="版本列表">
+  <div class="card">
+    <div>
+      <span class="chip1">推荐</span>
+      <span class="chip2">最佳性能</span>
+      <h3>EaglercraftX 1.8.8 <span style="font-size:12px;">WASM</span></h3>
+      <div class="features">
+        🌏语言：<span style="font-weight:bold;color:var(--accent);">简体中文</span>(完整翻译)、英文<br>
+        💻性能：<span style="font-weight:bold;color:var(--accent);">极高</span><br>
+        🎮设备：<span style="font-weight:bold;color:var(--accent);">手机触屏操作</span>、电脑键鼠操作<br>
+        🔗联机：<span style="font-weight:bold;color:var(--accent);">远程联机</span>、单机、局域网<br>
+        📂资源：<span style="font-weight:bold;color:var(--accent);">内置光影包</span>、自定义材质包
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a class="btn" onclick="goGame()">开始游戏</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <div>
+      <span class="chip1">推荐</span>
+      <span class="chip2">最佳性能</span>
+      <h3>EaglercraftX 1.12.2 <span style="font-size:12px;">WASM</span></h3>
+      <div class="features">
+        🌏语言：<span style="font-weight:bold;color:var(--accent);">简体中文</span>(完整翻译)、英文<br>
+        💻性能：<span style="font-weight:bold;color:var(--accent);">极高</span><br>
+        🎮设备：<span style="font-weight:bold;color:var(--accent);">手机触屏操作</span>、电脑键鼠操作<br>
+        🔗联机：<span style="font-weight:bold;color:var(--accent);">远程联机</span>、单机、局域网<br>
+        📂资源：<span style="font-weight:bold;color:var(--accent);">内置光影包</span>、自定义材质包
+      </div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <a class="btn" onclick="goGame112()">开始游戏</a>
+    </div>
+  </div>
+</main>
+
+  <script>
+    const bg = document.getElementById('bg');
+    function goGame() {
+      window.location.href = '1.8.html';
+    }
+    function changebg() {
+      if (bg.style.display != 'none') {
+        bg.style.display = 'none';
+      } else {
+        bg.style.display = 'block';
+      }
+    }
+function goGame112() {
+  window.location.href = '1.12.2.html'; 
+}
+  </script>
+</body>
+</html>
